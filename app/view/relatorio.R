@@ -84,6 +84,7 @@ ui <- function(id) {
                   col_widths = c(2, 6, 4),
                   # header$ui(ns("titulo2"),
                   #           "Informações do acesso ao questionário"),
+                  
                   layout_columns(
                     col_widths = c(12,12,12),
                     value_box(
@@ -224,7 +225,9 @@ server <- function(id, dados, dados1, selecao_fora) {
     })
     
     output$taxacob <- renderText({
-      dados1_filtrado()$tx[1] %>% formatar_numero(percent = T)
+      dados1_filtrado()$tx[1] %>% formatar_numero(percent = T, 
+                                                  digitos = 1, 
+                                                  ndigitos = 1)
     })
     
     output$acessos <- renderText({
@@ -239,7 +242,9 @@ server <- function(id, dados, dados1, selecao_fora) {
         saida <- x %>%
           summarise(media = round(mean(tempo), 2)) %>% 
           pull(media) %>%
-          formatar_numero() %>% 
+          formatar_numero(
+            digitos = 1, 
+            ndigitos = 1) %>% 
           paste("mins")
       }
       
@@ -255,7 +260,9 @@ server <- function(id, dados, dados1, selecao_fora) {
         saida <- x %>% 
           summarise(mediana = round(median(tempo), 2)) %>%
           pull(mediana) %>%
-          formatar_numero %>% 
+          formatar_numero(
+            digitos = 1, 
+            ndigitos = 1) %>% 
           paste("mins")
       }
       
@@ -282,7 +289,7 @@ server <- function(id, dados, dados1, selecao_fora) {
       saida <- dados1() %>% 
         summarise(pop_a = sum(pop_a, na.rm = T)) %>% 
         pull(pop_a)
-     
+      
       return(saida)
     })
     
@@ -292,7 +299,9 @@ server <- function(id, dados, dados1, selecao_fora) {
       numerador <- popbrasil()
       saida <- valor/numerador
       
-      saida <- formatar_numero(saida, percent = T)
+      saida <- formatar_numero(saida, percent = T,
+                               digitos = 1, 
+                               ndigitos = 1)
       
       return(saida)
     })
@@ -300,7 +309,7 @@ server <- function(id, dados, dados1, selecao_fora) {
     output$pop_brasil <- renderText({
       saida <- popbrasil() %>% 
         formatar_numero(ndigitos = 0)
-      print(saida)
+      
       return(saida)
     })
     

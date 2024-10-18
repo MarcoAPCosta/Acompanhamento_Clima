@@ -12,7 +12,8 @@ box::use(
 
 box::use(
   grafico_tempo_t = app/logic/grafico_tempo_a[tabela_Geracao],
-  titulo_grafico_t = app/logic/titulo_grafico_a[transformar_titulo]
+  titulo_grafico_t = app/logic/titulo_grafico_a[transformar_titulo],
+  app/logic/funcoes_auxiliares[formatar_numero]
 )
 
 #' @export
@@ -48,7 +49,8 @@ server <- function(id, dados, filtro) {
       dados_aqui <-   dados() %>%
         filter(str_detect(DR, linha))
       
-      titulo <- transformar_titulo(dados_aqui) %>% round()
+      titulo <- transformar_titulo(dados_aqui) %>% round() %>% 
+        formatar_numero(ndigitos = 0)
       titulo <- paste0("Média de acessos por dia: ", titulo)
       
       if(nrow(dados_aqui) > 0){

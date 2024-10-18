@@ -3,7 +3,7 @@ box::use(
         NS,
         reactive],
   bslib[bs_theme,
-        page_fluid,
+        page_fillable,
         nav_panel,
         navset_tab],
 )
@@ -20,7 +20,7 @@ box::use(
 ui <- function(id) {
   ns <- NS(id)
   
-  page_fluid(
+  page_fillable(
     title = "Painel de Acompanhamento ANQP",
     header$ui(ns("titulo"), 
               "Painel de acompanhamento da ANQP - 2024",

@@ -76,12 +76,13 @@ server <- function(id, dados, filtro) {
       grafico <- dados_aqui %>%
         e_charts(tp.aparelho) %>%
         e_pie(Quantidade,
-              percentPrecision = 2,
-              center = c("65%", "50%"),
+              percentPrecision = 1,
+              radius = c("0%", "60%"),
+              center = c("50%", "55%"),
               itemStyle = list(borderColor = "rgba(0, 0, 0, 0.30)"),
               labelLine = list(show = TRUE,
-                               length = 5,
-                               length2 = 5,
+                               length = 15,
+                               length2 = 15,
                                shadowColor = 'rgba(0, 0, 0, 100)',
                                shadowBlur = 2)) %>%
         e_color(c("#002a54",
@@ -92,12 +93,14 @@ server <- function(id, dados, filtro) {
           return saida
         }")) %>%
         e_labels(formatter = JS("function(params) {
-          saida = params.percent.toFixed(2).toString().replace('.', ',');
-          return saida + '%'
+          saida = params.percent.toFixed(1).toString().replace('.', ',');
+          saida2 = params.name
+          return `${saida2}\n${saida}%`
         }"),
                  position = "outside",
                  fontSize = 16) %>%
-        e_legend(orient = 'vertical',
+        e_legend(show = FALSE,
+                 orient = 'vertical',
                  left = "0%",
                  top = "bottom",
                  itemStyle = list(borderColor =  "rgba(0, 0, 0, 1)",
