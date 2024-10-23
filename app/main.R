@@ -15,10 +15,20 @@ box::use(
   app/view/dados1,
 )
 
-
+box::use(
+  app/logic/global[pool]
+)
 #' @export
 ui <- function(id) {
   ns <- NS(id)
+  
+  onStop(function() {
+    
+    cat("Fechando a conexão")
+    
+    DBI::poolClose(pool)
+    
+  })
   
   page_fillable(
     title = "Painel de Acompanhamento ANQP",

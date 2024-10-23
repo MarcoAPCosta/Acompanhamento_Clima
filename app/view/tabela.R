@@ -30,7 +30,8 @@ server <- function(id, dados) {
     output$tbl_dr <- renderReactable({
       trad <- data.frame(Nomes = opcoes %>% names,
                          DR = unname(opcoes),
-                         stringsAsFactors = FALSE)
+                         stringsAsFactors = FALSE) %>% 
+        mutate(Nomes = factor(Nomes))
       
       dados_t <- dados() %>%
         left_join(trad, by = c("DR")) %>%

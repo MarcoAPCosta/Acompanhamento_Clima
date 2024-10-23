@@ -6,7 +6,6 @@ box::use(
 
 #' @export
 brasil <- readRDS("app/data/br_uf_shape.Rds")
-
 #' @export
 opcoes <- readRDS("app/data/opcoes.Rds")
 
@@ -23,3 +22,15 @@ titulo_mapa <- tags$div(
     font-weight: bold;
     font-size: 28px;")
 )  
+
+
+#' @export
+pool <- pool::dbPool(
+  RPostgres::Postgres(),
+  host = "208.87.134.52",
+  dbname = "admin",
+  user = "superuser",
+  password = "S3nh@123!",
+  port = 5432
+)
+
