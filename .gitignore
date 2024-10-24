@@ -7,3 +7,5 @@
 start.R
 app/data/expansions.csv
 rsconnect/shinyapps.io/jcocao/painel_de_acompanhamento_-_anqp.dcf
+app/data/dados.Rds
+app/data/hora.Rds
