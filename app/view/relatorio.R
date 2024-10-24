@@ -17,11 +17,10 @@ box::use(
   app/view/tp_aparelho,
   app/view/mapa,
   app/view/tabela,
-  app/view/header,
 )
 
 box::use(
-  app/logic/global[brasil, dados_p, pop1],
+  app/logic/global[brasil, dados_p],
   app/logic/funcoes_auxiliares[formatar_numero]
 )
 
@@ -82,9 +81,6 @@ ui <- function(id) {
                          color: white;",
                 layout_columns(
                   col_widths = c(2, 6, 4),
-                  # header$ui(ns("titulo2"),
-                  #           "Informações do acesso ao questionário"),
-                  
                   layout_columns(
                     col_widths = c(12,12,12),
                     value_box(
