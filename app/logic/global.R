@@ -23,14 +23,6 @@ titulo_mapa <- tags$div(
     font-size: 28px;")
 )  
 
-
 #' @export
-pool <- pool::dbPool(
-  RPostgres::Postgres(),
-  host = "208.87.134.52",
-  dbname = "admin",
-  user = "superuser",
-  password = "S3nh@123!",
-  port = 5432
-)
-
+#' 
+hora_da_exportação <- readRDS("app/data/hora.Rds")

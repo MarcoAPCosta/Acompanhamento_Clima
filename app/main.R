@@ -1,11 +1,12 @@
 box::use(
   shiny[moduleServer,
         NS,
+        onStop,
         reactive],
   bslib[bs_theme,
         page_fillable,
         nav_panel,
-        navset_tab],
+        navset_tab]
 )
 
 box::use(
@@ -14,22 +15,15 @@ box::use(
   app/view/header,
   app/view/dados1,
 )
-
+# 
 box::use(
-  app/logic/global[pool]
+  app/logic/conexao_database
 )
+
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
-  onStop(function() {
-    
-    cat("Fechando a conexão")
-    
-    DBI::poolClose(pool)
-    
-  })
-  
+
   page_fillable(
     title = "Painel de Acompanhamento ANQP",
     header$ui(ns("titulo"), 
@@ -68,6 +62,8 @@ server <- function(id) {
     selecao_p <- relatorio$server("presencial", dados, dados1, selecao_e)
     
     selecao_e <- relatorio$server("ead", dados, dados1, selecao_p)
+    
+    header$server("titulo")
     
     
   })

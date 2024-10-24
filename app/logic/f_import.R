@@ -1,5 +1,5 @@
 box::use(
-  DBI[dbReadTable],
+  pool[dbReadTable],
   dplyr[`%>%`,
         as_tibble,
         case_when,
@@ -7,17 +7,16 @@ box::use(
         mutate]
 )
 
-
 box::use(
-  app/logic/global[pool]
+  app/logic/conexao_database[pool]
 )
 #' @export
 f_importar <- function(selecao){
   
  
   dados <- dbReadTable(pool,
-                       "anqp24") %>% 
-  # dados <- readRDS("app/data/dados.Rds") %>% 
+                       "anqp24") %>%
+  # dados <- readRDS("app/data/dados.Rds") %>%
   #   as_tibble() %>%
     mutate(DR2 = case_when(DR == "AC" ~ "12",
                            DR == "AL" ~ "27",
