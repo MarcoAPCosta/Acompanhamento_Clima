@@ -27,6 +27,6 @@ card {
   background-color: white;
 }
 
-  .bslib-card, .tab-content, .tab-pane, .card-body {
-      overflow: visible !important;
-    }
+.bslib-card, .tab-content, .tab-pane, .card-body {
+  overflow: visible !important;
+}

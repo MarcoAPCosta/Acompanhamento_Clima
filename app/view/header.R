@@ -4,11 +4,12 @@ box::use(
         tags,
         textOutput,
         renderText],
-  glue[glue]
+  glue[glue],
+  DBI[dbReadTable]
 )
 
 box::use(
-  app/logic/global[hora_da_exportação]
+  app/logic/conexao_database[pool]
 )
 
 #' @export
@@ -21,7 +22,7 @@ ui <- function(id, nome, tamanho = "xx-large") {
       background: url(static/images/header.svg);
       background-position: right;
       background-repeat: no-repeat;
-      background-size: 60%;
+      background-size: 48%;
     ",
     tags$h2(
       id = "titulo",
@@ -47,8 +48,10 @@ server <- function(id) {
   moduleServer(id, function(input, output, session) {
     
     output$hora <- renderText({
-      
-        saida <- glue("Dados atualizado em {hora_da_exportação}")
+      hora_da_exportação <- dbReadTable(pool,
+                                        "anqp24_hora")
+      hora_da_exportação <- hora_da_exportação[1,1]
+        saida <- glue("Dados atualizados em {hora_da_exportação}")
         
         return(saida)
       
