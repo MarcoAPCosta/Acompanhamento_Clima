@@ -165,8 +165,6 @@ server <- function(id, dados, dados1, selecao_fora) {
     
     selecao <- select_DR$server("selecao", dados, selecao_fora)
     
-    
-    
     ead_valor <- reactive({
       dados() %>%
         pull(ead) %>% 
