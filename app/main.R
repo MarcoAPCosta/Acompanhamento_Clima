@@ -39,7 +39,7 @@ ui <- function(id) {
       ),
       nav_panel(
         title = "Unidade",
-        value = "ead",
+        value = "presencial",
         relatorio_uni$ui(ns("ead")))
     )
   )

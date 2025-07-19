@@ -15,9 +15,9 @@ box::use(
   app/view/select_DR,
   app/view/select_uni,
   app/view/grafico_taxa,
-  app/view/tp_aparelho,
+  app/view/tp_aparelho_uni,
   app/view/mapa,
-  app/view/tabela,
+  app/view/tabela_uni,
 )
 
 box::use(
@@ -110,7 +110,7 @@ ui <- function(id) {
                     full_screen = TRUE,
                     
                     card_body(
-                      tp_aparelho$ui(ns("tp"))
+                      tp_aparelho_uni$ui(ns("tp"))
                     )
                     
                   )
@@ -152,7 +152,7 @@ ui <- function(id) {
                     theme = value_box_theme(fg = "#000",
                                             bg = "#fff")
                   ),
-                  tabela$ui(ns("tabela")),
+                  tabela_uni$ui(ns("tabela")),
                   mapa$ui(ns("mapa"))
                 )
       )
@@ -198,23 +198,25 @@ server <- function(id, dados, dados1, selecao_fora) {
     })
     
     
-    dados2_filtrado <- reactive({req(selecao())
+    dados2_filtrado <- reactive({
+      req(selecao(), unidade())
       valor <- selecao()
       if(valor == "BR"){
         saida <- dados()}else{
           saida <- dados() %>%
-            filter(DR == selecao())
+            filter(DR == selecao(),
+                   unidade == unidade())
         }
       return(saida)
     })
     
     grafico_taxa$server("taxa", dados, selecao)
     
-    tp_aparelho$server("tp", dados, selecao)
+    tp_aparelho_uni$server("tp", dados, selecao, unidade)
     
     mapa$server("mapa", brasil,  dados)
     
-    tabela$server("tabela", dados)
+    tabela_uni$server("tabela", dados, selecao)
     
     output$popalvo <- renderText({
       dados1_filtrado()$pop_a[1] %>% formatar_numero(ndigitos = 0)
@@ -275,6 +277,7 @@ server <- function(id, dados, dados1, selecao_fora) {
       dados() %>%
         filter(!is.na(valido)) %>% 
         filter(valido==1) %>% 
+        filter(unidade == unidade()) %>%
         nrow()
     })
     output$val_brasil <- renderText({
