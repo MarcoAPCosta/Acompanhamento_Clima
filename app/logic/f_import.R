@@ -14,10 +14,8 @@ box::use(
 f_importar <- function(selecao){
   
  
-  dados <- dbReadTable(pool,
-                       "anqp24") %>%
-  # dados <- readRDS("app/data/dados.Rds") %>%
-  #   as_tibble() %>%
+  dados <- readRDS("app/data/dados.Rds") %>%
+     as_tibble() %>%
     mutate(DR2 = case_when(DR == "AC" ~ "12",
                            DR == "AL" ~ "27",
                            DR == "AM" ~ "13",

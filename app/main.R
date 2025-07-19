@@ -11,6 +11,7 @@ box::use(
 
 box::use(
   app/view/relatorio,
+  app/view/relatorio_uni,
   app/view/dados,
   app/view/header,
   app/view/dados1,
@@ -32,14 +33,14 @@ ui <- function(id) {
     navset_tab(
       id = ns("rede"),
       nav_panel(
-        title = "Rede Presencial",
+        title = "Departamento Regional",
         value = "presencial",
         relatorio$ui(ns("presencial"))
       ),
       nav_panel(
-        title = "Rede EAD",
+        title = "Unidade",
         value = "ead",
-        relatorio$ui(ns("ead")))
+        relatorio_uni$ui(ns("ead")))
     )
   )
   
@@ -61,7 +62,7 @@ server <- function(id) {
     
     selecao_p <- relatorio$server("presencial", dados, dados1, selecao_e)
     
-    selecao_e <- relatorio$server("ead", dados, dados1, selecao_p)
+    selecao_e <- relatorio_uni$server("ead", dados, dados1, selecao_p)
     
     header$server("titulo")
     
