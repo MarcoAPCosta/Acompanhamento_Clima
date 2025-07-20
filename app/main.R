@@ -26,9 +26,9 @@ ui <- function(id) {
   ns <- NS(id)
 
   page_fillable(
-    title = "Painel de Acompanhamento ANQP",
+    title = "Painel de Acompanhamento Clima",
     header$ui(ns("titulo"), 
-              "Painel de acompanhamento da ANQP - 2024",
+              "Painel de acompanhamento Clima - 2025",
               "xxx-large"),
     navset_tab(
       id = ns("rede"),

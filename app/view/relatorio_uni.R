@@ -14,7 +14,7 @@ box::use(
 box::use(
   app/view/select_DR,
   app/view/select_uni,
-  app/view/grafico_taxa,
+  app/view/grafico_taxa_uni,
   app/view/tp_aparelho_uni,
   app/view/mapa,
   app/view/tabela_uni,
@@ -102,7 +102,7 @@ ui <- function(id) {
                     full_screen = TRUE,
                     
                     card_body(
-                      grafico_taxa$ui(ns("taxa"))
+                      grafico_taxa_uni$ui(ns("taxa"))
                     )
                   ),
                   
@@ -132,21 +132,21 @@ ui <- function(id) {
                 layout_columns(
                   col_widths = c(4, 4, 4, 6, 6),
                   value_box(
-                    title = "População Alvo do Brasil:",
+                    title = "População Alvo do DR:",
                     value = textOutput(ns("pop_brasil")),
                     showcase = bs_icon("people-fill"),
                     theme = value_box_theme(fg = "#000",
                                             bg = "#fff")
                   ),
                   value_box(
-                    title = "Questionários válidos do Brasil:",
+                    title = "Questionários válidos da Unidade:",
                     value = textOutput(ns("val_brasil")),
                     showcase = bs_icon("clipboard-check-fill"),
                     theme = value_box_theme(fg = "#000",
                                             bg = "#fff")
                   ),
                   value_box(
-                    title = "Taxa de resposta do Brasil:",
+                    title = "Taxa de resposta da Unidade em relação ao DR:",
                     value = textOutput(ns("tx_brasil")),
                     showcase = bs_icon("percent"),
                     theme = value_box_theme(fg = "#000",
@@ -210,7 +210,7 @@ server <- function(id, dados, dados1, selecao_fora) {
       return(saida)
     })
     
-    grafico_taxa$server("taxa", dados, selecao)
+    grafico_taxa_uni$server("taxa", dados, selecao, unidade)
     
     tp_aparelho_uni$server("tp", dados, selecao, unidade)
     
@@ -274,9 +274,11 @@ server <- function(id, dados, dados1, selecao_fora) {
     })
     
     validos_brasil <- reactive({
+      req(selecao(), unidade())
       dados() %>%
-        filter(!is.na(valido)) %>% 
-        filter(valido==1) %>% 
+        filter(!is.na(valido),
+               valido == "1") %>% 
+        filter(DR == selecao()) %>%
         filter(unidade == unidade()) %>%
         nrow()
     })
@@ -288,8 +290,11 @@ server <- function(id, dados, dados1, selecao_fora) {
     
     
     popbrasil <- reactive({
+      req(selecao())
       
       saida <- dados1() %>% 
+        filter(DR == selecao()) %>%
+        group_by(DR) %>%
         summarise(pop_a = sum(pop_a, na.rm = T)) %>% 
         pull(pop_a)
       

@@ -20,20 +20,20 @@ ui <- function(id) {
 }
 
 #' @export
-server <- function(id, dados,filtro, unidade) {
+server <- function(id, dados,dr_selecionado ,unidade) {
   moduleServer(id, function(input, output, session) {
     
     
     output$grafico_dr_1 <- renderEcharts4r({
   
       dados_aqui <- dados() %>%
+        filter(DR == dr_selecionado()) %>%
         filter(unidade == unidade()) %>%
         count(tp.aparelho, name = "Quantidade", sort = T)
       
       
       if(nrow(dados_aqui) > 0){
         grafico <- dados_aqui %>%
-          filter(unidade == unidade())
           e_charts(tp.aparelho) %>%
           e_pie(Quantidade,
                 percentPrecision = 1,
