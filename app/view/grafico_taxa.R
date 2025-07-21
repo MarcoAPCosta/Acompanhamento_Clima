@@ -77,7 +77,7 @@ server <- function(id, dados, filtro) {
         return fmt.format(value);
       }'),
                  axisLabel = list(fontSize = 14)) %>%
-        e_title(text = "Total de acessos por dia, ANQP 2024",
+        e_title(text = "Total de acessos por dia, Clima 2025",
                 textStyle = list(fontSize = 18,
                                  fontStyle = "normal"),
                 subtext = titulo, 
