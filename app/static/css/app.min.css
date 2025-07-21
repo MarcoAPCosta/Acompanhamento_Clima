@@ -12,11 +12,11 @@ h2#titulo{
 }
 
 body {
-  background:#002a54
+  background:#fb1366
 }
 
 card {
-  border-color: #002a54;
+  border-color: #fb1366;
 }
 
 .nav-link.active {

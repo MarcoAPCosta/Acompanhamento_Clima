@@ -35,10 +35,10 @@ ui <- function(id) {
       card_header("População e cadastro",
                   style = "font-size: 24px;
                   text-align: center;
-                  background-color: #8aa8ff;
+                  background-color: #34efda;
                   color: white;
                   "),
-      card_body(style = "background-color: #002a54;
+      card_body(style = "background-color: #fb1366;
                          color: white;",
                 layout_columns(
                   col_widths = c(3, 3, 3, 3),
@@ -68,16 +68,15 @@ ui <- function(id) {
                 )
       )
     ),
-    hr(),
     #ui2
     card(
       card_header("Informações do acesso ao questionário",
                   style = "font-size: 24px;
                   text-align: center;
-                  background-color: #8aa8ff;
+                  background-color: #34efda;
                   color: white;
                   "),
-      card_body(style = "background-color: #002a54;
+      card_body(style = "background-color: #fb1366;
                          color: white;",
                 layout_columns(
                   col_widths = c(2, 6, 4),
@@ -115,17 +114,16 @@ ui <- function(id) {
                 )
       )
     ),
-    hr(),
     #ui3
     card(
       card_header("Questionários válidos e Taxa de resposta",
                   style = "font-size: 24px; 
                  text-align: center;
-                 background-color: #8aa8ff;
+                 background-color: #34efda;
                  color: white;
                  "),
       
-      card_body(style = "background-color: #002a54;
+      card_body(style = "background-color: #fb1366;
                          color: white;",
                 layout_columns(
                   col_widths = c(4, 4, 4, 6, 6),
