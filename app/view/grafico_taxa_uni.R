@@ -27,23 +27,11 @@ ui <- function(id) {
 }
 
 #' @export
-server <- function(id, dados, filtro, dr_selecionado, unidade) {
+server <- function(id, dados, dr_selecionado, unidade) {
   moduleServer(id, function(input, output, session) {
     
     output$chart_tempo_1 <- renderEcharts4r({
       
-      if(length(filtro()) < 1){
-        linha <- "."
-        check <- F
-      } else {
-        if(filtro() == "BR"){
-          linha <- "."
-          check <- F
-        }else{
-          linha <- filtro()
-          check <- T
-        }
-      }
       
       
       dados_aqui <- dados() %>%
