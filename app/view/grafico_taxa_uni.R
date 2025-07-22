@@ -31,8 +31,7 @@ server <- function(id, dados, dr_selecionado, unidade) {
   moduleServer(id, function(input, output, session) {
     
     output$chart_tempo_1 <- renderEcharts4r({
-      
-      
+
       
       dados_aqui <- dados() %>%
         filter(DR == dr_selecionado())%>%
@@ -66,7 +65,7 @@ server <- function(id, dados, dr_selecionado, unidade) {
         return fmt.format(value);
       }'),
                    axisLabel = list(fontSize = 14)) %>%
-          e_title(text = "Total de acessos por dia, ANQP 2024",
+          e_title(text = "Total de acessos por dia, Clima 2025",
                   textStyle = list(fontSize = 18,
                                    fontStyle = "normal"),
                   subtext = titulo, 

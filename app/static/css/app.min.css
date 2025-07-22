@@ -12,11 +12,11 @@ h2#titulo{
 }
 
 body {
-  background:#002a54
+  background:#12dec7
 }
 
-card {
-  border-color: #002a54;
+.card {
+  border: none !important;
 }
 
 .nav-link.active {
@@ -25,6 +25,10 @@ card {
 
 .nav-item {
   background-color: white;
+}
+
+.nav-tabs{
+  border-color: #00000000;
 }
 
 .bslib-card, .tab-content, .tab-pane, .card-body {
