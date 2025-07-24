@@ -35,11 +35,11 @@ ui <- function(id) {
       card_header("População e cadastro",
                   style = "font-size: 24px;
                   text-align: center;
-                  background-color: #34efda;
+                  background-color: #f78b1f;
                   color: white;
                   "),
-      card_body(style = "background-color: #fb1366;
-                         color: white;",
+      card_body(style = "background-color: #EDEDED;
+                         color: black;",
                 layout_columns(
                   col_widths = c(3, 3, 3, 3),
                   select_DR$ui(ns("selecao")),
@@ -73,11 +73,11 @@ ui <- function(id) {
       card_header("Informações do acesso ao questionário",
                   style = "font-size: 24px;
                   text-align: center;
-                  background-color: #34efda;
+                  background-color: #f78b1f;
                   color: white;
                   "),
-      card_body(style = "background-color: #fb1366;
-                         color: white;",
+      card_body(style = "background-color: #EDEDED;
+                         color: black;",
                 layout_columns(
                   col_widths = c(2, 6, 4),
                   layout_columns(
@@ -119,12 +119,12 @@ ui <- function(id) {
       card_header("Questionários válidos e Taxa de resposta",
                   style = "font-size: 24px; 
                  text-align: center;
-                 background-color: #34efda;
+                 background-color: #f78b1f;
                  color: white;
                  "),
       
-      card_body(style = "background-color: #fb1366;
-                         color: white;",
+      card_body(style = "background-color: #EDEDED;
+                         color: black;",
                 layout_columns(
                   col_widths = c(4, 4, 4, 6, 6),
                   value_box(
