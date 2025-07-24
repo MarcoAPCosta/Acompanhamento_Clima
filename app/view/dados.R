@@ -7,13 +7,12 @@ box::use(
 )
 
 #' @export
-server <- function(id, selecao) {
+server <- function(id) {
   moduleServer(id, function(input, output, session) {
     
     
     dados <- reactive({
-      x <- selecao()
-      saida <- f_importar(x)
+      saida <- f_importar()
       
       return(saida)
       

@@ -162,19 +162,7 @@ server <- function(id, dados, dados1, selecao_fora) {
   moduleServer(id, function(input, output, session) {
     
     selecao <- select_DR$server("selecao", dados, selecao_fora)
-    
-    ead_valor <- reactive({
-      dados() %>%
-        pull(ead) %>% 
-        unique()
-    })
-    
-    selecao1 <- reactive({req(selecao())
-      dados_p |> 
-        filter(DR == selecao()) |> 
-        filter(ead == ead_valor())
-    })
-    
+
     dados1_filtrado <- reactive({req(selecao())
       valor <- selecao()
       if(valor == "BR"){

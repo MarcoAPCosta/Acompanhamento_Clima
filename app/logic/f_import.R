@@ -11,7 +11,7 @@ box::use(
   app/logic/conexao_database[pool]
 )
 #' @export
-f_importar <- function(selecao){
+f_importar <- function(){
   
  
   dados <- readRDS("app/data/dados.Rds") %>%
@@ -43,8 +43,7 @@ f_importar <- function(selecao){
                            DR == "SE" ~ "28",
                            DR == "SP" ~ "35",
                            DR == "TO" ~ "17",
-                           .default = NA_character_)) %>%
-    filter(ead == selecao )
+                           .default = NA_character_))
   
   
   return(dados)

@@ -51,14 +51,11 @@ ui <- function(id) {
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
     
-    rede_tab <- reactive({
-      x <- ifelse(input$rede == "ead", 1, 0)
-      return(x)
-    })
+   
     
-    dados <- dados$server("asdas", rede_tab)
+    dados <- dados$server("asdas")
     
-    dados1 <- dados1$server("asdasd", rede_tab)
+    dados1 <- dados1$server("asdasd")
     
     selecao_p <- relatorio$server("presencial", dados, dados1, selecao_e)
     
