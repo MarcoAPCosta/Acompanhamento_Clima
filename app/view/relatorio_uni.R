@@ -166,19 +166,6 @@ server <- function(id, dados, dados1, selecao_fora) {
     unidade <- select_uni$server("selecao_uni", dados, selecao)
     
     
-    ead_valor <- reactive({
-      print(unidade())
-      dados() %>%
-        pull(ead) %>% 
-        unique() 
-    })
-    
-    selecao1 <- reactive({req(selecao())
-      dados_p |> 
-        filter(DR == selecao()) |> 
-        filter(ead == ead_valor())
-    })
-    
     dados1_filtrado <- reactive({req(selecao())
       valor <- selecao()
       if(valor == "BR"){
