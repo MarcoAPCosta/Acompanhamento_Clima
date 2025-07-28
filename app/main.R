@@ -15,6 +15,7 @@ box::use(
   app/view/dados,
   app/view/header,
   app/view/dados1,
+  app/view/dados_p_uni,
 )
 # 
 box::use(
@@ -56,6 +57,8 @@ server <- function(id) {
     dados <- dados$server("asdas")
     
     dados1 <- dados1$server("asdasd")
+    
+    dados_p_uni <- dados_p_uni$server("adsasdasdas")
     
     selecao_p <- relatorio$server("presencial", dados, dados1, selecao_e)
     
