@@ -1,7 +1,7 @@
 h2#titulo{
     text-align: left;
     color: white;
-    height: 200px;
+    height: 140px;
     position: relative;
     align-content: center;
 }
@@ -20,11 +20,11 @@ body {
 }
 
 .nav-link.active {
-  background-color: #8aa8ff !important;
+  background-color: #F78B1F !important;
 }
 
 .nav-item {
-  background-color: white;
+  background-color: #EDEDED;
 }
 
 .nav-tabs{

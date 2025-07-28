@@ -56,7 +56,7 @@ server <- function(id, dados, dr_selecionado, unidade) {
         maximumFractionDigits:0});
         return fmt.format(value);
       }')) %>%
-          e_theme_custom('{"color":["#002a54"]}') %>%
+          e_theme_custom('{"color":["#87ac77"]}') %>%
           e_y_axis(formatter = JS('function(value) {
         var fmt = new Intl.NumberFormat("pt-BR",
         {style:"decimal",
@@ -65,7 +65,7 @@ server <- function(id, dados, dr_selecionado, unidade) {
         return fmt.format(value);
       }'),
                    axisLabel = list(fontSize = 14)) %>%
-          e_title(text = "Total de acessos por dia, Clima 2025",
+          e_title(text = "Total de acessos da Unidade por dia, Clima 2025",
                   textStyle = list(fontSize = 18,
                                    fontStyle = "normal"),
                   subtext = titulo, 

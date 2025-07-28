@@ -45,9 +45,9 @@ server <- function(id, dados,dr_selecionado ,unidade) {
                                  length2 = 15,
                                  shadowColor = 'rgba(0, 0, 0, 100)',
                                  shadowBlur = 2)) %>%
-          e_color(c("#002a54",
-                    "#8aa8ff",
-                    "#ffa32a")) %>% 
+          e_color(c("#adc4a3",
+                    "#87ac77",
+                    "#ec5650")) %>% 
           e_tooltip(valueFormatter = JS("function(value) {
           saida = value.toString().replace(',', '.');
           return saida
@@ -66,7 +66,7 @@ server <- function(id, dados,dr_selecionado ,unidade) {
                    itemStyle = list(borderColor =  "rgba(0, 0, 0, 1)",
                                     borderWidth =  0.5),
                    selectedMode = FALSE) %>%
-          e_title(text = "Distribuição dos acessos, por tipo de aparelho utilizado,\nClima 2025",
+          e_title(text = "Distribuição dos acessos da Unidade, por tipo de aparelho utilizado,\nClima 2025",
                   #subtext = titulo,
                   textStyle = list(fontSize = 18,
                                    fontStyle = "normal")) %>% 

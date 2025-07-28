@@ -38,11 +38,18 @@ server <- function(id, dados) {
         filter(!is.na(valido)) %>% 
         mutate(DR = Nomes,
                .keep = "unused") %>% 
-        group_by(DR, ead) %>%
+        group_by(DR) %>%
         filter(DR != "SG") %>%
         summarise(Validos = sum(valido == "1"),
                   Total = unique(Total),
-                  Taxa = (Validos/Total))
+                  Taxa = (Validos/Total)) 
+      
+      dados_t[c(7, 8), ] <- dados_t[c(8, 7), ]
+      
+      dados_t <- dados_t %>%
+        distinct(DR, .keep_all = TRUE)
+        
+    
      
                   
       
@@ -57,11 +64,10 @@ server <- function(id, dados) {
                                                           locales = "pt-BR")),
                 theme = reactableTheme(
                   color = "black",
-                  highlightColor = "#8aa8ff",
                   headerStyle = list(
                     color = "white",
                     fontWeight = "bold",
-                    backgroundColor = "#ffa32a",
+                    backgroundColor = "#ec5650",
                     fontSize = "18px"
                                      )
                 ),

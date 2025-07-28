@@ -12,7 +12,7 @@ box::use(
 )
 
 box::use(
-  app/view/select_DR,
+  app/view/select_dr_uni,
   app/view/select_uni,
   app/view/grafico_taxa_uni,
   app/view/tp_aparelho_uni,
@@ -36,33 +36,33 @@ ui <- function(id) {
       card_header("População e cadastro",
                   style = "font-size: 24px;
                   text-align: center;
-                  background-color: #fb1366;
+                  background-color: #ec6c8e;
                   color: white;
                   "),
       card_body(style = "background-color: #EDEDED;
                          color: black;",
                 layout_columns(
                   col_widths = c(3, 3, 3, 3),
-                  div(select_DR$ui(ns("selecao")),
+                  div(select_dr_uni$ui(ns("selecao")),
                       select_uni$ui(ns("selecao_uni"))),
                   
                   value_box(
-                    title = "População Alvo:",
-                    value = textOutput(ns("popalvo")),
+                    title = "População Alvo da Unidade:",
+                    value = textOutput(ns("pop_brasil")),
                     showcase = bs_icon("people-fill"),
                     theme = value_box_theme(fg = "#000",
                                             bg = "#fff")
                   ),
                   value_box(
-                    title = "População Alvo com contato:",
-                    value = textOutput(ns("poppesq")),
-                    showcase = bs_icon("person-check-fill"),
+                    title = "Questionários Válidos da Unidade:",
+                    value = textOutput(ns("val_brasil")),
+                    showcase = bs_icon("clipboard-check-fill"),
                     theme = value_box_theme(fg = "#000",
                                             bg = "#fff")
                   ),
                   value_box(
-                    title = "Taxa de Cobertura:",
-                    value = textOutput(ns("taxacob")),
+                    title = "Taxa de Resposta:",
+                    value = textOutput(ns("tx_brasil")),
                     showcase = bs_icon("percent"),
                     theme = value_box_theme(fg = "#000",
                                             bg = "#fff")
@@ -75,7 +75,7 @@ ui <- function(id) {
       card_header("Informações do acesso ao questionário",
                   style = "font-size: 24px;
                   text-align: center;
-                  background-color: #6AA84F;
+                  background-color: #ec6c8e;
                   color: white;
                   "),
       card_body(style = "background-color: #EDEDED;
@@ -121,7 +121,7 @@ ui <- function(id) {
       card_header("Questionários válidos e Taxa de resposta",
                   style = "font-size: 24px; 
                  text-align: center;
-                 background-color: #6AA84F;
+                 background-color: #ec6c8e;
                  color: white;
                  "),
       
@@ -131,21 +131,21 @@ ui <- function(id) {
                   col_widths = c(4, 4, 4),
                   value_box(
                     title = "População Alvo do DR:",
-                    value = textOutput(ns("pop_brasil")),
+                    value = textOutput(ns("popalvo")),
                     showcase = bs_icon("people-fill"),
                     theme = value_box_theme(fg = "#000",
                                             bg = "#fff")
                   ),
                   value_box(
-                    title = "Questionários válidos da Unidade:",
-                    value = textOutput(ns("val_brasil")),
-                    showcase = bs_icon("clipboard-check-fill"),
+                    title = "População alvo com contato:",
+                    value = textOutput(ns("poppesq")),
+                    showcase = bs_icon("person-check-fill"),
                     theme = value_box_theme(fg = "#000",
                                             bg = "#fff")
                   ),
                   value_box(
-                    title = "Taxa de resposta da Unidade em relação ao DR:",
-                    value = textOutput(ns("tx_brasil")),
+                    title = "Taxa de Cobertura:",
+                    value = textOutput(ns("taxacob")),
                     showcase = bs_icon("percent"),
                     theme = value_box_theme(fg = "#000",
                                             bg = "#fff")
@@ -158,25 +158,19 @@ ui <- function(id) {
 }
 
 #' @export
-server <- function(id, dados, dados1, selecao_fora) {
+server <- function(id, dados, dados1,  selecao_fora) {
   moduleServer(id, function(input, output, session) {
     
-    selecao <- select_DR$server("selecao", dados, selecao_fora)
+    selecao <- select_dr_uni$server("selecao", dados, selecao_fora)
     
     unidade <- select_uni$server("selecao_uni", dados, selecao)
     
     
     dados1_filtrado <- reactive({req(selecao())
       valor <- selecao()
-      if(valor == "BR"){
-        saida <- dados1() %>% 
-          summarise(across(c(pop_a, pop_p),
-                           ~sum(.x, na.rm =T))) %>% 
-          mutate(tx = pop_p/pop_a)
-      }else{
         saida <- dados1() %>%
           filter(DR == selecao())
-      }
+      
       return(saida)
     })
     
@@ -192,6 +186,8 @@ server <- function(id, dados, dados1, selecao_fora) {
         }
       return(saida)
     })
+    
+    
     
     grafico_taxa_uni$server("taxa", dados, selecao, unidade)
     
@@ -275,9 +271,10 @@ server <- function(id, dados, dados1, selecao_fora) {
     popbrasil <- reactive({
       req(selecao())
       
-      saida <- dados1() %>% 
+      saida <- dados_p_uni() %>% 
         filter(DR == selecao()) %>%
-        group_by(DR) %>%
+        filter(unidade == unidade()) %>%
+        group_by(DR, unidade) %>%
         summarise(pop_a = sum(pop_a, na.rm = T)) %>% 
         pull(pop_a)
       

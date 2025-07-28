@@ -10,10 +10,10 @@ box::use(
 
 f_importar <- function(){
   
-  message("Começando a leitura dos dados1")
-  dados1 <- readRDS("app/data/dados_p1_teste.rds") %>% 
+  message("Começando a leitura dos dadosp")
+  dados_p_uni <- readRDS("app/data/dados_p_uni.rds") %>% 
     as_tibble()
-  message("dados1 lido")
+  message("dadosp lido")
   return(dados1)
   
 }

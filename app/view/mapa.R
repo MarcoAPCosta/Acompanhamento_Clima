@@ -31,6 +31,14 @@ ui <- function(id) {
 #' @export
 server <- function(id, brasil, dados) {
   moduleServer(id, function(input, output, session) {
+    
+    
+    legenda <- c("Abaixo - 25% ou mais",
+                 "Abaixo - 10% a 25%",
+                 "Entre 10% abaixo e 10% acima",
+                 "Acima - 10% a 25%",
+                 "Acima - 25% ou mais")
+    
     output$chart_tempo_2 <- renderLeaflet({
       dados <- filter(dados(), !is.na(valido))
       faixas <- c(0, 0.75, 0.9, 1.1, 1.25, 10)
@@ -78,7 +86,7 @@ server <- function(id, brasil, dados) {
         }))
       
       cores <- colorFactor(
-        c("#D7E8F0", "#B0C8F7", "#8AA8FF", "#4569A9", "#002A54"),
+        c("#EDEDED", "#34efda", "#00b015","#5f914a","#38761d"),
         domain = brasil$Tx,
         levels = levels(brasil$Tx),
         na.color = "red"
@@ -115,7 +123,7 @@ server <- function(id, brasil, dados) {
         ) %>%
         addLegend("bottomright",
                   pal = cores,
-                  values = ~Tx,
+                  values = factor(legenda, levels = legenda),
                   title = "Comparativo com a taxa nacional",
                   opacity = 1
         ) %>%
@@ -124,9 +132,9 @@ server <- function(id, brasil, dados) {
           lng = -52.121803250871675,
           zoom = 6
         )
-    #  %>% 
+    #  %>%
     #     addControl(tags$div(
-    #       tags$p("Taxa de resposta (%), por Departamento Regional, ANQP 2024", 
+    #       tags$p("Taxa de resposta (%), por Departamento Regional, Clima 2025",
     #          style = " color: black;
     # font-weight: bold;
     # font-size: 28px;")

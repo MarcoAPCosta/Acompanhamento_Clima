@@ -85,9 +85,9 @@ server <- function(id, dados, filtro) {
                                length2 = 15,
                                shadowColor = 'rgba(0, 0, 0, 100)',
                                shadowBlur = 2)) %>%
-        e_color(c("#002a54",
-                  "#8aa8ff",
-                  "#ffa32a")) %>% 
+        e_color(c("#adc4a3",
+                  "#87ac77",
+                  "#ec5650")) %>% 
         e_tooltip(valueFormatter = JS("function(value) {
           saida = value.toString().replace(',', '.');
           return saida

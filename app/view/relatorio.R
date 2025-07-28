@@ -31,11 +31,10 @@ ui <- function(id) {
   list(
     #ui1
     card(
-      style = "margin-top: 20px",
       card_header("População e cadastro",
                   style = "font-size: 24px;
                   text-align: center;
-                  background-color: #f78b1f;
+                  background-color: #ec6c8e;
                   color: white;
                   "),
       card_body(style = "background-color: #EDEDED;
@@ -73,7 +72,7 @@ ui <- function(id) {
       card_header("Informações do acesso ao questionário",
                   style = "font-size: 24px;
                   text-align: center;
-                  background-color: #f78b1f;
+                  background-color: #ec6c8e;
                   color: white;
                   "),
       card_body(style = "background-color: #EDEDED;
@@ -119,7 +118,7 @@ ui <- function(id) {
       card_header("Questionários válidos e Taxa de resposta",
                   style = "font-size: 24px; 
                  text-align: center;
-                 background-color: #f78b1f;
+                 background-color: #ec6c8e;
                  color: white;
                  "),
       
