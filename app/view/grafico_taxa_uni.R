@@ -35,7 +35,7 @@ server <- function(id, dados, dr_selecionado, unidade) {
       
       dados_aqui <- dados() %>%
         filter(DR == dr_selecionado())%>%
-        filter(unidade == unidade())
+        filter(cod_unidade == unidade())
       
       titulo <- transformar_titulo(dados_aqui) %>% round() %>% 
         formatar_numero(ndigitos = 0)

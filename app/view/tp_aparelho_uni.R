@@ -28,7 +28,7 @@ server <- function(id, dados,dr_selecionado ,unidade) {
   
       dados_aqui <- dados() %>%
         filter(DR == dr_selecionado()) %>%
-        filter(unidade == unidade()) %>%
+        filter(cod_unidade == unidade()) %>%
         count(tp.aparelho, name = "Quantidade", sort = T)
       
       

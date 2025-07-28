@@ -182,7 +182,7 @@ server <- function(id, dados, dados1,  selecao_fora) {
         saida <- dados()}else{
           saida <- dados() %>%
             filter(DR == selecao(),
-                   unidade == unidade())
+                   cod_unidade == unidade())
         }
       return(saida)
     })
@@ -258,7 +258,7 @@ server <- function(id, dados, dados1,  selecao_fora) {
         filter(!is.na(valido),
                valido == "1") %>% 
         filter(DR == selecao()) %>%
-        filter(unidade == unidade()) %>%
+        filter(cod_unidade == unidade()) %>%
         nrow()
     })
     output$val_brasil <- renderText({
@@ -271,10 +271,10 @@ server <- function(id, dados, dados1,  selecao_fora) {
     popbrasil <- reactive({
       req(selecao())
       
-      saida <- dados_p_uni() %>% 
+      saida <- dados1() %>% 
         filter(DR == selecao()) %>%
-        filter(unidade == unidade()) %>%
-        group_by(DR, unidade) %>%
+        filter(cod.unidade != "Total") %>%
+        filter(cod.unidade == unidade()) %>%
         summarise(pop_a = sum(pop_a, na.rm = T)) %>% 
         pull(pop_a)
       

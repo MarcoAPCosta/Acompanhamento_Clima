@@ -18,7 +18,7 @@ server <- function(id, dados, dr_selecionado) {
       req(dr_selecionado())
       print(dados())
       df <- dados() %>% filter(DR == dr_selecionado()) %>%
-        pull(unidade) %>%
+        pull(cod_unidade) %>%
         unique() %>%
         sort()
     })
