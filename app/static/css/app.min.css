@@ -17,6 +17,7 @@ body {
 
 .card {
   border: none !important;
+  height: auto !important;
 }
 
 .nav-link.active {
