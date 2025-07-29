@@ -193,7 +193,7 @@ server <- function(id, dados, dados1, selecao_fora) {
     
     mapa$server("mapa", brasil,  dados)
     
-    tabela$server("tabela", dados)
+    tabela$server("tabela", dados, dados1)
     
     output$popalvo <- renderText({
       dados1_filtrado()$pop_a[1] %>% formatar_numero(ndigitos = 0)

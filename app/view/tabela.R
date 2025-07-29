@@ -24,7 +24,7 @@ ui <- function(id) {
 }
 
 #' @export
-server <- function(id, dados) {
+server <- function(id, dados, dados1) {
   moduleServer(id, function(input, output, session) {
     
     output$tbl_dr <- renderReactable({
@@ -33,27 +33,28 @@ server <- function(id, dados) {
                          stringsAsFactors = FALSE) %>% 
         mutate(Nomes = factor(Nomes))
       
+      dados_p <- dados1() %>%
+        filter(cod.unidade == "Total") %>%
+        select(DR, pop_a)
+      
       dados_t <- dados() %>%
         left_join(trad, by = c("DR")) %>%
-        filter(!is.na(valido)) %>% 
+        select(-cod_unidade)
+        
+      
+    
+
+      dados_t1 <- left_join(dados_t, dados_p, by = c("DR")) %>%
+      filter(!is.na(valido)) %>% 
         mutate(DR = Nomes,
                .keep = "unused") %>% 
         group_by(DR) %>%
         filter(DR != "SG") %>%
         summarise(Validos = sum(valido == "1"),
-                  Total = unique(Total),
-                  Taxa = (Validos/Total)) 
+                  Total = unique(pop_a),
+                  Taxa = (Validos/Total))                   
       
-      dados_t[c(7, 8), ] <- dados_t[c(8, 7), ]
-      
-      dados_t <- dados_t %>%
-        distinct(DR, .keep_all = TRUE)
-        
-    
-     
-                  
-      
-      reactable(dados_t,
+      reactable(dados_t1,
                 pagination = FALSE,
                 filterable = FALSE,
                 highlight = TRUE,
@@ -67,7 +68,8 @@ server <- function(id, dados) {
                   headerStyle = list(
                     color = "white",
                     fontWeight = "bold",
-                    backgroundColor = "#ec5650",
+                    backgroundColor = "#ec5650
+",
                     fontSize = "18px"
                                      )
                 ),

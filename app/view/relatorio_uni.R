@@ -61,7 +61,7 @@ ui <- function(id) {
                                             bg = "#fff")
                   ),
                   value_box(
-                    title = "Taxa de Resposta:",
+                    title = "Taxa de Resposta da Unidade:",
                     value = textOutput(ns("tx_brasil")),
                     showcase = bs_icon("percent"),
                     theme = value_box_theme(fg = "#000",
@@ -169,7 +169,8 @@ server <- function(id, dados, dados1,  selecao_fora) {
     dados1_filtrado <- reactive({req(selecao())
       valor <- selecao()
         saida <- dados1() %>%
-          filter(DR == selecao())
+          filter(DR == selecao(),
+                 cod.unidade == "Total")
       
       return(saida)
     })
