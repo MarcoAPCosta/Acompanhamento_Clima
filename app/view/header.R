@@ -20,12 +20,11 @@ ui <- function(id, nome, tamanho = "xx-large") {
       id = "titulo",
       nome,
       style = glue("
-          margin-top: 25px;
           padding-left: 25px;
           background: url(static/images/header_clima.svg);
-          background-position: right;
+          background-position: center;
           background-repeat: no-repeat;
-          background-size: 100%;
+          background-size: 70%;
           font-size:{tamanho}")
     )
   )
