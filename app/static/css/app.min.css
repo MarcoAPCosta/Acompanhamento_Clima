@@ -1,7 +1,7 @@
 h2#titulo{
     text-align: left;
     color: white;
-    height: 90px;
+    height: 85px;
     position: relative;
     align-content: center;
 }
@@ -17,7 +17,7 @@ body {
 
 .card {
   border: none !important;
-  height: auto !important;
+  height: auto ;
 }
 
 .nav-link.active {

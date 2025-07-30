@@ -22,9 +22,9 @@ ui <- function(id, nome, tamanho = "xx-large") {
       style = glue("
           padding-left: 25px;
           background: url(static/images/teste_banner.svg);
-          background-position: center;
+          background-position: right;
           background-repeat: no-repeat;
-          background-size: 100%;
+          background-size: 70%;
           font-size:{tamanho}")
     )
   )

@@ -31,8 +31,7 @@ ui <- function(id) {
   
   list(
     #ui1
-    card(
-      style = "margin-top: 20px",
+    card(id = "Card1_Uni",
       card_header("População e cadastro",
                   style = "font-size: 24px;
                   text-align: center;
@@ -270,7 +269,7 @@ server <- function(id, dados, dados1,  selecao_fora) {
     
     
     popbrasil <- reactive({
-      req(selecao())
+      req(selecao(), unidade())
       
       saida <- dados1() %>% 
         filter(DR == selecao()) %>%

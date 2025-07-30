@@ -31,6 +31,7 @@ server <- function(id, dados, dr_selecionado, unidade) {
   moduleServer(id, function(input, output, session) {
     
     output$chart_tempo_1 <- renderEcharts4r({
+      req(dr_selecionado(), unidade())
 
       
       dados_aqui <- dados() %>%

@@ -1,8 +1,5 @@
 box::use(
-  shiny[moduleServer,
-        NS,
-        onStop,
-        reactive],
+  shiny[...],
   bslib[bs_theme,
         page_fillable,
         nav_panel,
@@ -28,22 +25,28 @@ ui <- function(id) {
 
   page_fillable(
     title = "Painel de Acompanhamento Clima",
-    header$ui(ns("titulo"), 
-              "",
-              "xxx-large"),
-    navset_tab(
-      id = ns("rede"),
-      nav_panel(
-        title = "Departamento Regional",
-        value = "presencial",
-        relatorio$ui(ns("presencial"))
-      ),
-      nav_panel(
-        title = "Unidade",
-        value = "presencial",
-        relatorio_uni$ui(ns("ead")))
+    header$ui(
+      ns("titulo"), 
+      "",
+      "xxx-large"
+    ),
+    tags$div(style = "margin-top: -64px;",
+      navset_tab(
+        id = ns("rede"),
+        nav_panel(
+          title = "Departamento Regional",
+          value = "presencial",
+          relatorio$ui(ns("presencial"))
+        ),
+        nav_panel(
+          title = "Unidade",
+          value = "presencial",
+          relatorio_uni$ui(ns("ead"))
+        )
+      )
     )
   )
+  
   
   
 }
@@ -58,7 +61,7 @@ server <- function(id) {
     
     dados1 <- dados1$server("asdasd")
     
-    dados_p_uni <- dados_p_uni$server("adsasdasdas")
+    print(is.reactive(dados1)) 
     
     selecao_p <- relatorio$server("presencial", dados, dados1, selecao_e)
     

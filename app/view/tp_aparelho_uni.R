@@ -1,5 +1,5 @@
 box::use(
-  shiny[moduleServer, NS, renderPlot, plotOutput, strong],
+  shiny[moduleServer, NS, renderPlot, plotOutput, strong, req],
   bslib[card_header,card_body],
   dplyr[tibble, `%>%`, count, n, summarise,
         group_by, mutate, filter, case_when],
@@ -25,6 +25,8 @@ server <- function(id, dados,dr_selecionado ,unidade) {
     
     
     output$grafico_dr_1 <- renderEcharts4r({
+      
+      req(dr_selecionado(), unidade())
   
       dados_aqui <- dados() %>%
         filter(DR == dr_selecionado()) %>%
