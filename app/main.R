@@ -61,7 +61,6 @@ server <- function(id) {
     
     dados1 <- dados1$server("asdasd")
     
-    print(is.reactive(dados1)) 
     
     selecao_p <- relatorio$server("presencial", dados, dados1, selecao_e)
     

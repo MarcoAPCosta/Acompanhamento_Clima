@@ -36,7 +36,7 @@ server <- function(id, dados, dr_selecionado, unidade) {
       
       dados_aqui <- dados() %>%
         filter(DR == dr_selecionado())%>%
-        filter(cod_unidade == unidade())
+        filter(nome_unidade == unidade())
       
       titulo <- transformar_titulo(dados_aqui) %>% round() %>% 
         formatar_numero(ndigitos = 0)
@@ -88,7 +88,7 @@ server <- function(id, dados, dr_selecionado, unidade) {
           e_legend(show = FALSE) %>%
           e_color("transparent") %>%
           e_labels(position = "inside",
-                   formatter = "DR sem acessos no momento",
+                   formatter = "Unidade sem acessos no momento",
                    fontSize = 30,
                    color = "black") %>%
           e_x_axis(show = FALSE) %>%

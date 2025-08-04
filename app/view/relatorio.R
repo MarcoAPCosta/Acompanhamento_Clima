@@ -166,6 +166,7 @@ server <- function(id, dados, dados1, selecao_fora) {
       valor <- selecao()
       if(valor == "BR"){
         saida <- dados1() %>% 
+          filter(nome_unidade != "Total") %>%
           summarise(across(c(pop_a, pop_p),
                            ~sum(.x, na.rm =T))) %>% 
           mutate(tx = pop_p/pop_a)
@@ -224,7 +225,7 @@ server <- function(id, dados, dados1, selecao_fora) {
           formatar_numero(
             digitos = 1, 
             ndigitos = 1) %>% 
-          paste("mins")
+          paste("minutos")
       }
       
       if(nrow(x) == 0) saida <- "0"
@@ -242,7 +243,7 @@ server <- function(id, dados, dados1, selecao_fora) {
           formatar_numero(
             digitos = 1, 
             ndigitos = 1) %>% 
-          paste("mins")
+          paste("minutos")
       }
       
       if(nrow(x) == 0) saida <- "0"
@@ -266,6 +267,7 @@ server <- function(id, dados, dados1, selecao_fora) {
     popbrasil <- reactive({
       
       saida <- dados1() %>% 
+        filter(nome_unidade != "Total") %>%
         summarise(pop_a = sum(pop_a, na.rm = T)) %>% 
         pull(pop_a)
       

@@ -21,8 +21,15 @@ body {
 }
 
 .nav-link.active {
-  background-color: #F78B1F !important;
+  background-color: #38761d !important;
+  color: white !important;
 }
+
+.nav-link:not(.active){
+  background-color: white !important;
+  color: black !important;
+}
+
 
 .nav-item {
   background-color: #EDEDED;
