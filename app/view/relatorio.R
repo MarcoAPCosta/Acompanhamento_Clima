@@ -17,6 +17,7 @@ box::use(
   app/view/tp_aparelho,
   app/view/mapa,
   app/view/tabela,
+  app/view/tabela_unidade
 )
 
 box::use(
@@ -148,7 +149,7 @@ ui <- function(id) {
                                             bg = "#fff")
                   ),
                   tabela$ui(ns("tabela")),
-                  mapa$ui(ns("mapa"))
+                  tabela_unidade$ui(ns("tabela_unidade"))
                 )
       )
     )
@@ -192,9 +193,9 @@ server <- function(id, dados, dados1, selecao_fora) {
     
     tp_aparelho$server("tp", dados, selecao)
     
-    mapa$server("mapa", brasil,  dados)
+    tabela$server("tabela", dados, dados1, selecao)
     
-    tabela$server("tabela", dados, dados1)
+    tabela_unidade$server("tabela_unidade", dados, dados1, selecao)
     
     output$popalvo <- renderText({
       dados1_filtrado()$pop_a[1] %>% formatar_numero(ndigitos = 0)
@@ -216,19 +217,23 @@ server <- function(id, dados, dados1, selecao_fora) {
     
     output$medio <- renderText({
       
+      
       x <- dados2_filtrado()
       
-      if(nrow(x) > 0){
-        saida <- x %>%
-          summarise(media = round(mean(tempo), 2)) %>% 
+      if (nrow(x) == 0) {
+        saida <- "0"
+        
+      } else if (nrow(filter(x, valido == "1")) == 0) {
+        saida <- "-"
+        
+      } else {
+        saida <- x %>% 
+          filter(valido == "1") %>%
+          summarise(media = round(mean(tempo, na.rm = TRUE), 2)) %>%
           pull(media) %>%
-          formatar_numero(
-            digitos = 1, 
-            ndigitos = 1) %>% 
+          formatar_numero(digitos = 1, ndigitos = 1) %>% 
           paste("minutos")
       }
-      
-      if(nrow(x) == 0) saida <- "0"
       
       return(saida)
     })
@@ -236,19 +241,24 @@ server <- function(id, dados, dados1, selecao_fora) {
     output$mediana <- renderText({
       
       x <- dados2_filtrado()
-      if(nrow(x) > 0){
+      
+      if (nrow(x) == 0) {
+        saida <- "0"
+        
+      } else if (nrow(filter(x, valido == "1")) == 0) {
+        saida <- "-"
+        
+      } else {
         saida <- x %>% 
-          summarise(mediana = round(median(tempo), 2)) %>%
+          filter(valido == "1") %>%
+          summarise(mediana = round(median(tempo, na.rm = TRUE), 2)) %>%
           pull(mediana) %>%
-          formatar_numero(
-            digitos = 1, 
-            ndigitos = 1) %>% 
+          formatar_numero(digitos = 1, ndigitos = 1) %>% 
           paste("minutos")
       }
       
-      if(nrow(x) == 0) saida <- "0"
-      
       return(saida)
+      
     })
     
     validos_brasil <- reactive({

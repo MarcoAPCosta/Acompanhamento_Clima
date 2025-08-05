@@ -10,15 +10,15 @@ ui <- function(id) {
 }
 
 #' @export
-server <- function(id, dados, dr_selecionado) {
+server <- function(id, dados1, dr_selecionado) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
     unidades_filtradas <- reactive({
       req(dr_selecionado())
-      print(dados())
-      df <- dados() %>% filter(DR == dr_selecionado()) %>%
-        pull(cod_unidade) %>%
+      df <- dados1() %>% filter(DR == dr_selecionado()) %>%
+        filter(nome_unidade != "Total") %>%
+        pull(nome_unidade) %>%
         unique() %>%
         sort()
     })

@@ -162,14 +162,14 @@ server <- function(id, dados, dados1,  selecao_fora) {
     
     selecao <- select_dr_uni$server("selecao", dados, selecao_fora)
     
-    unidade <- select_uni$server("selecao_uni", dados, selecao)
+    unidade <- select_uni$server("selecao_uni", dados1, selecao)
     
     
     dados1_filtrado <- reactive({req(selecao())
       valor <- selecao()
         saida <- dados1() %>%
           filter(DR == selecao(),
-                 cod.unidade == "Total")
+                 nome_unidade == "Total")
       
       return(saida)
     })
@@ -182,7 +182,7 @@ server <- function(id, dados, dados1,  selecao_fora) {
         saida <- dados()}else{
           saida <- dados() %>%
             filter(DR == selecao(),
-                   cod_unidade == unidade())
+                   nome_unidade == unidade())
         }
       return(saida)
     })
@@ -217,19 +217,23 @@ server <- function(id, dados, dados1,  selecao_fora) {
     
     output$medio <- renderText({
       
+      
       x <- dados2_filtrado()
       
-      if(nrow(x) > 0){
-        saida <- x %>%
-          summarise(media = round(mean(tempo), 2)) %>% 
+      if (nrow(x) == 0) {
+        saida <- "0"
+        
+      } else if (nrow(filter(x, valido == "1")) == 0) {
+        saida <- "-"
+        
+      } else {
+        saida <- x %>% 
+          filter(valido == "1") %>%
+          summarise(media = round(mean(tempo, na.rm = TRUE), 2)) %>%
           pull(media) %>%
-          formatar_numero(
-            digitos = 1, 
-            ndigitos = 1) %>% 
-          paste("mins")
+          formatar_numero(digitos = 1, ndigitos = 1) %>% 
+          paste("minutos")
       }
-      
-      if(nrow(x) == 0) saida <- "0"
       
       return(saida)
     })
@@ -237,19 +241,24 @@ server <- function(id, dados, dados1,  selecao_fora) {
     output$mediana <- renderText({
       
       x <- dados2_filtrado()
-      if(nrow(x) > 0){
+      
+      if (nrow(x) == 0) {
+        saida <- "0"
+        
+      } else if (nrow(filter(x, valido == "1")) == 0) {
+        saida <- "-"
+        
+      } else {
         saida <- x %>% 
-          summarise(mediana = round(median(tempo), 2)) %>%
+          filter(valido == "1") %>%
+          summarise(mediana = round(median(tempo, na.rm = TRUE), 2)) %>%
           pull(mediana) %>%
-          formatar_numero(
-            digitos = 1, 
-            ndigitos = 1) %>% 
-          paste("mins")
+          formatar_numero(digitos = 1, ndigitos = 1) %>% 
+          paste("minutos")
       }
       
-      if(nrow(x) == 0) saida <- "0"
-      
       return(saida)
+      
     })
     
     validos_brasil <- reactive({
@@ -258,7 +267,7 @@ server <- function(id, dados, dados1,  selecao_fora) {
         filter(!is.na(valido),
                valido == "1") %>% 
         filter(DR == selecao()) %>%
-        filter(cod_unidade == unidade()) %>%
+        filter(nome_unidade == unidade()) %>%
         nrow()
     })
     output$val_brasil <- renderText({
@@ -273,8 +282,8 @@ server <- function(id, dados, dados1,  selecao_fora) {
       
       saida <- dados1() %>% 
         filter(DR == selecao()) %>%
-        filter(cod.unidade != "Total") %>%
-        filter(cod.unidade == unidade()) %>%
+        filter(nome_unidade != "Total") %>%
+        filter(nome_unidade == unidade()) %>%
         summarise(pop_a = sum(pop_a, na.rm = T)) %>% 
         pull(pop_a)
       

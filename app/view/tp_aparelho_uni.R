@@ -30,7 +30,7 @@ server <- function(id, dados,dr_selecionado ,unidade) {
   
       dados_aqui <- dados() %>%
         filter(DR == dr_selecionado()) %>%
-        filter(cod_unidade == unidade()) %>%
+        filter(nome_unidade == unidade()) %>%
         count(tp.aparelho, name = "Quantidade", sort = T)
       
       
@@ -68,7 +68,7 @@ server <- function(id, dados,dr_selecionado ,unidade) {
                    itemStyle = list(borderColor =  "rgba(0, 0, 0, 1)",
                                     borderWidth =  0.5),
                    selectedMode = FALSE) %>%
-          e_title(text = "Distribuição dos acessos da Unidade, por tipo de aparelho utilizado,\nClima 2025",
+          e_title(text = "Distribuição dos acessos, por tipo de aparelho utilizado,\nClima 2025",
                   #subtext = titulo,
                   textStyle = list(fontSize = 18,
                                    fontStyle = "normal")) %>% 
@@ -88,8 +88,8 @@ server <- function(id, dados,dr_selecionado ,unidade) {
           e_legend(show = FALSE) %>%
           e_color("transparent") %>%
           e_labels(position = "inside",
-                   formatter = "DR sem acessos no momento",
-                   fontSize = 30,
+                   formatter = "Até o momento nenhum aluno da Unidade\n\ acessou a pesquisa",
+                   fontSize = 25,
                    color = "black") %>%
           e_x_axis(show = FALSE) %>%
           e_y_axis(show = FALSE) %>% 

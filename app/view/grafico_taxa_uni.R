@@ -40,7 +40,6 @@ server <- function(id, dados, dr_selecionado, unidade) {
       
       titulo <- transformar_titulo(dados_aqui) %>% round() %>% 
         formatar_numero(ndigitos = 0)
-      titulo <- paste0("Média de acessos por dia: ", titulo)
       
       if(nrow(dados_aqui) > 0){
         
@@ -66,12 +65,9 @@ server <- function(id, dados, dr_selecionado, unidade) {
         return fmt.format(value);
       }'),
                    axisLabel = list(fontSize = 14)) %>%
-          e_title(text = "Total de acessos da Unidade por dia, Clima 2025",
+          e_title(text = "Total de acessos por dia, Clima 2025",
                   textStyle = list(fontSize = 18,
-                                   fontStyle = "normal"),
-                  subtext = titulo, 
-                  subtextStyle = list(fontSize = 14,
-                                      fontStyle = "italic")) %>% 
+                                   fontStyle = "normal")) %>% 
           e_show_loading(text = "Carregando",
                          color = "#8aa8ff",
                          text_color = "#000",
@@ -88,8 +84,8 @@ server <- function(id, dados, dr_selecionado, unidade) {
           e_legend(show = FALSE) %>%
           e_color("transparent") %>%
           e_labels(position = "inside",
-                   formatter = "Unidade sem acessos no momento",
-                   fontSize = 30,
+                   formatter = "Até o momento nenhum aluno da Unidade acessou a pesquisa",
+                   fontSize = 25,
                    color = "black") %>%
           e_x_axis(show = FALSE) %>%
           e_y_axis(show = FALSE) %>% 

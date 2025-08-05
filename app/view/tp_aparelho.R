@@ -126,8 +126,8 @@ server <- function(id, dados, filtro) {
           e_legend(show = FALSE) %>%
           e_color("transparent") %>%
           e_labels(position = "inside",
-                   formatter = "DR sem acessos no momento",
-                   fontSize = 30,
+                   formatter = "Até o momento nenhum aluno do DR\n\ acessou a pesquisa",
+                   fontSize = 25,
                    color = "black") %>%
           e_x_axis(show = FALSE) %>%
           e_y_axis(show = FALSE) %>% 

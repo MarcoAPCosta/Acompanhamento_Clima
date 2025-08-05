@@ -14,7 +14,7 @@ box::use(
 f_importar <- function(){
   
  
-  dados <- readRDS("app/data/dados_1.Rds") %>%
+  dados <- readRDS("app/data/dados_1.rds") %>%
      as_tibble() %>%
     mutate(DR2 = case_when(DR == "AC" ~ "12",
                            DR == "AL" ~ "27",

@@ -4,7 +4,7 @@ box::use(
         tooltip],
   dplyr[...],
   tidyr[starts_with],
-  reactable[...],
+ reactable[...],
 )
 
 
@@ -16,11 +16,11 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
-  reactableOutput(ns("tbl_dr"),
-                  width = "100%")
-  
-  
+      
+      reactableOutput(ns("tbl_dr"),
+               width = "100%")
+    
+
 }
 
 #' @export
@@ -28,26 +28,27 @@ server <- function(id, dados, dados1, dr_selecionado) {
   moduleServer(id, function(input, output, session) {
     
     output$tbl_dr <- renderReactable({
-      
       req(dr_selecionado())
       
       trad <- data.frame(Nomes = opcoes %>% names,
                          DR = unname(opcoes),
                          stringsAsFactors = FALSE)
       
-      
+   
       
       dados_t <- dados() %>%
-        filter(!is.na(valido)) %>%
-        select(-c(nome_unidade,cod_unidade, tp.aparelho, id, dia, tempo, dt.conclusao, Total))
-      
-      
-      dados_p <- dados1() %>%
-        filter(nome_unidade == "Total") %>%
-        select(DR, nome_unidade, pop_a)
-      
-      
-      dados_t1 <- left_join(dados_p, dados_t, by = c("DR")) %>%
+        filter(!is.na(valido),
+               DR == dr_selecionado()) %>%
+        select(-c(cod_unidade, tp.aparelho, id, dia, tempo, dt.conclusao, Total))
+        
+        
+        dados_p <- dados1() %>%
+          filter(nome_unidade != "Total",
+                 DR == dr_selecionado()) %>%
+          select(DR, nome_unidade, pop_a)
+        
+        
+      dados_t1 <- left_join(dados_p, dados_t, by = c("DR", "nome_unidade")) %>%
         group_by(DR, nome_unidade) %>%
         filter(DR != "SG") %>%
         mutate(valido = ifelse(is.na(valido),
@@ -56,13 +57,14 @@ server <- function(id, dados, dados1, dr_selecionado) {
         summarise(Validos = sum(valido == "1"),
                   Total = unique(pop_a),
                   Taxa = (Validos/Total))
-      
+        
       dados_t2 <- dados_t1 %>%
         left_join(trad, by = c("DR")) %>%
-        select(DR,Nomes, Validos, Total, Taxa)
+        mutate(DR = Nomes,
+               .keep = "unused")
       
       
-      
+        
       
       reactable(dados_t2,
                 pagination = FALSE,
@@ -81,25 +83,21 @@ server <- function(id, dados, dados1, dr_selecionado) {
                     backgroundColor = "#ec5650
 ",
                     fontSize = "18px"
-                  )
-                ) ,rowStyle = function(index) {
-                  if (dados_t2[index, "DR"] == dr_selecionado()) {
-                    list(background = "rgba(56, 118, 29, 0.5)")
-                  }
-                },
+                                     )
+                ),
                 columns = list(
                   ead = colDef(
-                    show = FALSE
-                  ),
-                  nome_unidade = colDef(
                     show = FALSE
                   ),
                   DR = colDef(
                     show = FALSE
                   ),
-                  Nomes = colDef(
-                    name = "Departamento Regional",
-                    width = 380
+                  nome_unidade = colDef(
+                    name = "Nome da Unidade",
+                    width = 380,
+                    style = list(
+                      fontSize = "16px"
+                    )
                   ),
                   Validos = colDef(
                     filterable = FALSE,
@@ -110,7 +108,7 @@ server <- function(id, dados, dados1, dr_selecionado) {
                       fontSize = "16px"
                       
                     )
-                  ),
+                                      ),
                   Total = colDef(
                     name = "População Alvo",
                     align = "center",
@@ -122,20 +120,20 @@ server <- function(id, dados, dados1, dr_selecionado) {
                     format = colFormat(separators = TRUE,
                                        percent = TRUE,
                                        digits = 1),
-                    width = 220,
                     align = "center",
+                    width = 220,
                     style = list(
                       fontSize = "16px"
                     )
                   )
                 )
                 
-      )
+                )
+                
       
-      
-      
+        
     })
     
   })
-}
-
+  }
+    
