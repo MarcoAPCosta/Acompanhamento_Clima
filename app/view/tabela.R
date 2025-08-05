@@ -99,13 +99,15 @@ server <- function(id, dados, dados1, dr_selecionado) {
                   ),
                   Nomes = colDef(
                     name = "Departamento Regional",
-                    width = 380
+                    maxWidth = 300,
+                    minWidth = 168
                   ),
                   Validos = colDef(
                     filterable = FALSE,
                     name = "Total de questionários válidos",
                     align = "center",
-                    width = 250,
+                    maxWidth = 200,
+                    minWidth = 111,
                     style = list(
                       fontSize = "16px"
                       
@@ -114,7 +116,8 @@ server <- function(id, dados, dados1, dr_selecionado) {
                   Total = colDef(
                     name = "População Alvo",
                     align = "center",
-                    width = 150
+                    maxWidth = 200,
+                    minWidth = 111,
                   ),
                   Taxa = colDef(
                     name = "Taxa de resposta (%)",
@@ -122,7 +125,8 @@ server <- function(id, dados, dados1, dr_selecionado) {
                     format = colFormat(separators = TRUE,
                                        percent = TRUE,
                                        digits = 1),
-                    width = 220,
+                    maxWidth = 197,
+                    minWidth = 110,
                     align = "center",
                     style = list(
                       fontSize = "16px"

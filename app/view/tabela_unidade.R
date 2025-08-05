@@ -94,7 +94,8 @@ server <- function(id, dados, dados1, dr_selecionado) {
                   ),
                   nome_unidade = colDef(
                     name = "Nome da Unidade",
-                    width = 380,
+                    maxWidth = 300,
+                    minWidth = 168,
                     style = list(
                       fontSize = "16px"
                     )
@@ -103,7 +104,8 @@ server <- function(id, dados, dados1, dr_selecionado) {
                     filterable = FALSE,
                     name = "Total de questionários válidos",
                     align = "center",
-                    width = 250,
+                    maxWidth = 200,
+                    minWidth = 111,
                     style = list(
                       fontSize = "16px"
                       
@@ -112,7 +114,8 @@ server <- function(id, dados, dados1, dr_selecionado) {
                   Total = colDef(
                     name = "População Alvo",
                     align = "center",
-                    width = 150
+                    maxWidth = 200,
+                    minWidth = 111,
                   ),
                   Taxa = colDef(
                     name = "Taxa de resposta (%)",
@@ -121,7 +124,8 @@ server <- function(id, dados, dados1, dr_selecionado) {
                                        percent = TRUE,
                                        digits = 1),
                     align = "center",
-                    width = 220,
+                    maxWidth = 197,
+                    minWidth = 110,
                     style = list(
                       fontSize = "16px"
                     )
