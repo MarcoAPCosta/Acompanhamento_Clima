@@ -76,7 +76,7 @@ server <- function(id, dados, filtro) {
         return fmt.format(value);
       }'),
                  axisLabel = list(fontSize = 14)) %>%
-        e_title(text = "Total de acessos por dia, Clima 2025",
+        e_title(text = "Total de acessos por dia, Pesquisa sobre Percepção de Clima, 2025",
                 textStyle = list(fontSize = 18,
                                  fontStyle = "normal")) %>% 
         e_show_loading(text = "Carregando",
