@@ -32,7 +32,7 @@ ui <- function(id) {
   list(
     #ui1
     card(id = "Card1_Uni",
-      card_header("População e cadastro",
+      card_header("Questionários válidos e Taxa de resposta",
                   style = "font-size: 24px;
                   text-align: center;
                   background-color: #ec6c8e;
@@ -117,7 +117,7 @@ ui <- function(id) {
     ),
     #ui3
     card(
-      card_header("Questionários válidos e Taxa de resposta",
+      card_header(textOutput(ns("titulo_card_unidade")),
                   style = "font-size: 24px; 
                  text-align: center;
                  background-color: #ec6c8e;
@@ -290,8 +290,18 @@ server <- function(id, dados, dados1,  selecao_fora) {
       return(saida)
     })
     
+    output$titulo_card_unidade <- renderText({
+      req(selecao())
+      
+      
+      
+      paste0("População e Cadastro - ",selecao())
+    })
+    
     
     output$tx_brasil <- renderText({
+      req(selecao(), unidade())
+      
       valor <- validos_brasil()
       numerador <- popbrasil()
       saida <- valor/numerador
@@ -313,4 +323,6 @@ server <- function(id, dados, dados1,  selecao_fora) {
     return(selecao)
     
   })
+  
+    
 }
